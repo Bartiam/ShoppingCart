@@ -1,6 +1,6 @@
-#include "Basket.h"
+п»ї#include "Basket.h"
 
-// Реализация метода заполнение склада товарами;
+// Р РµР°Р»РёР·Р°С†РёСЏ РјРµС‚РѕРґР° Р·Р°РїРѕР»РЅРµРЅРёРµ СЃРєР»Р°РґР° С‚РѕРІР°СЂР°РјРё;
 void Shop::fill_products(std::string& article, int& count)
 {
 	while (true)
@@ -11,27 +11,27 @@ void Shop::fill_products(std::string& article, int& count)
 		std::cout << "Enter the product quantity: ";
 		std::cin >> count;
 
-		// Бросает исключение в случае если количество добавляемого товара меньше 0;
+		// Р‘СЂРѕСЃР°РµС‚ РёСЃРєР»СЋС‡РµРЅРёРµ РІ СЃР»СѓС‡Р°Рµ РµСЃР»Рё РєРѕР»РёС‡РµСЃС‚РІРѕ РґРѕР±Р°РІР»СЏРµРјРѕРіРѕ С‚РѕРІР°СЂР° РјРµРЅСЊС€Рµ 0;
 		if (count < 0) throw std::invalid_argument("invalid_argument\nThe number of products cannot be less than 0. Try again.");
-		// Добавляет товар в список товаров магазина;
+		// Р”РѕР±Р°РІР»СЏРµС‚ С‚РѕРІР°СЂ РІ СЃРїРёСЃРѕРє С‚РѕРІР°СЂРѕРІ РјР°РіР°Р·РёРЅР°;
 		else products.emplace(article, count);
 
 		std::cout << "To stop filling the warehouse, enter \"stop\". " << std::endl;
 	}
 }
 
-// Релизация метода добавления товара в корзину;
+// Р РµР»РёР·Р°С†РёСЏ РјРµС‚РѕРґР° РґРѕР±Р°РІР»РµРЅРёСЏ С‚РѕРІР°СЂР° РІ РєРѕСЂР·РёРЅСѓ;
 void Shop::add_product(std::string& article, int& count)
 {
-	// Переменная для проверки имеется ли такой товар в магазине;
+	// РџРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ РїСЂРѕРІРµСЂРєРё РёРјРµРµС‚СЃСЏ Р»Рё С‚Р°РєРѕР№ С‚РѕРІР°СЂ РІ РјР°РіР°Р·РёРЅРµ;
 	bool isTrue = true;
-	// Проверка есть ли товары в магазине;
+	// РџСЂРѕРІРµСЂРєР° РµСЃС‚СЊ Р»Рё С‚РѕРІР°СЂС‹ РІ РјР°РіР°Р·РёРЅРµ;
 	if (products.empty()) throw std::runtime_error("runtime_error!\nThe store's warehouse is empty.");
 
-	// Проверки перед добавлением товара в коризну;
+	// РџСЂРѕРІРµСЂРєРё РїРµСЂРµРґ РґРѕР±Р°РІР»РµРЅРёРµРј С‚РѕРІР°СЂР° РІ РєРѕСЂРёР·РЅСѓ;
 	while (true)
 	{
-		// Вывод списка товаров;
+		// Р’С‹РІРѕРґ СЃРїРёСЃРєР° С‚РѕРІР°СЂРѕРІ;
 		std::cout << "You can add products from the list: " << std::endl;
 		for (const auto& product : products)
 			std::cout << "Article: " << product.first << "\tCount: " << product.second << std::endl;
@@ -42,19 +42,19 @@ void Shop::add_product(std::string& article, int& count)
 		std::cout << "Enter the product quantity: ";
 		std::cin >> count;
 
-		// Проверка на введённое количество товаров;
+		// РџСЂРѕРІРµСЂРєР° РЅР° РІРІРµРґС‘РЅРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕРІР°СЂРѕРІ;
 		if (count < 0) throw std::invalid_argument("invalid_argument!\nThe number of products cannot be less than 0. ");
 		for (auto it = products.begin(); it != products.end(); ++it)
 		{
-			if (it->first == article) // Поиск товара на складе;
+			if (it->first == article) // РџРѕРёСЃРє С‚РѕРІР°СЂР° РЅР° СЃРєР»Р°РґРµ;
 			{
-				if (it->second < count) // Сравнение введённого количества товара и доступного товара в магазине;
+				if (it->second < count) // РЎСЂР°РІРЅРµРЅРёРµ РІРІРµРґС‘РЅРЅРѕРіРѕ РєРѕР»РёС‡РµСЃС‚РІР° С‚РѕРІР°СЂР° Рё РґРѕСЃС‚СѓРїРЅРѕРіРѕ С‚РѕРІР°СЂР° РІ РјР°РіР°Р·РёРЅРµ;
 					throw std::invalid_argument("invalid_argument!\nThere is no such quantity of goods in the store.");
 				
 				if (it->second > count) it->second -= count;
 				else products.erase(it);
 
-				// Добавление товара в корзину;
+				// Р”РѕР±Р°РІР»РµРЅРёРµ С‚РѕРІР°СЂР° РІ РєРѕСЂР·РёРЅСѓ;
 				basket.emplace(article, count);
 				isTrue = true;
 				std::cout << "If you have added all the necessary products, enter \"stop\"." << std::endl;
@@ -62,21 +62,21 @@ void Shop::add_product(std::string& article, int& count)
 			}
 			else isTrue = false;
 		}
-		// Бросает исключение если такого товара нет на складе;
+		// Р‘СЂРѕСЃР°РµС‚ РёСЃРєР»СЋС‡РµРЅРёРµ РµСЃР»Рё С‚Р°РєРѕРіРѕ С‚РѕРІР°СЂР° РЅРµС‚ РЅР° СЃРєР»Р°РґРµ;
 		if (!isTrue) throw std::invalid_argument("invalid_argument!\nThere is no such product in the store. ");
 	}
 }
-// Реализация метода удаления товара из корзины;
+// Р РµР°Р»РёР·Р°С†РёСЏ РјРµС‚РѕРґР° СѓРґР°Р»РµРЅРёСЏ С‚РѕРІР°СЂР° РёР· РєРѕСЂР·РёРЅС‹;
 void Shop::remove_product(std::string& article, int& count)
 {
 	bool isTrue = true;
-	// Проверка есть ли товары в корзине;
+	// РџСЂРѕРІРµСЂРєР° РµСЃС‚СЊ Р»Рё С‚РѕРІР°СЂС‹ РІ РєРѕСЂР·РёРЅРµ;
 	if (basket.empty()) throw std::runtime_error("runtime_error!\nThe basket is empty.");
 
-	// Проверки перед удалением товара из коризны;
+	// РџСЂРѕРІРµСЂРєРё РїРµСЂРµРґ СѓРґР°Р»РµРЅРёРµРј С‚РѕРІР°СЂР° РёР· РєРѕСЂРёР·РЅС‹;
 	while (true)
 	{
-		// Вывод списка товаров;
+		// Р’С‹РІРѕРґ СЃРїРёСЃРєР° С‚РѕРІР°СЂРѕРІ;
 		std::cout << "You can only delete what is in the basket. Here is the list: " << std::endl;
 		for (const auto& product : basket)
 			std::cout << "Article: " << product.first << "\tCount: " << product.second << std::endl;
@@ -86,17 +86,17 @@ void Shop::remove_product(std::string& article, int& count)
 		if (article == "Stop" || article == "stop") break;
 		std::cout << "Enter the product quantity: ";
 
-		// Проверка на введённое количество товаров;
+		// РџСЂРѕРІРµСЂРєР° РЅР° РІРІРµРґС‘РЅРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕРІР°СЂРѕРІ;
 		if (count < 0) throw std::invalid_argument("invalid_argument!\nThe number of products cannot be less than 0. ");
 
 		for (auto it = basket.begin(); it != basket.end(); ++it)
 		{
-			if (it->first == article) // Поиск товара в корзине;
+			if (it->first == article) // РџРѕРёСЃРє С‚РѕРІР°СЂР° РІ РєРѕСЂР·РёРЅРµ;
 			{
-				if (it->second < count) // Сравнение введённого количества товара и доступного товара в корзине;
+				if (it->second < count) // РЎСЂР°РІРЅРµРЅРёРµ РІРІРµРґС‘РЅРЅРѕРіРѕ РєРѕР»РёС‡РµСЃС‚РІР° С‚РѕРІР°СЂР° Рё РґРѕСЃС‚СѓРїРЅРѕРіРѕ С‚РѕРІР°СЂР° РІ РєРѕСЂР·РёРЅРµ;
 					throw std::invalid_argument("invalid_argument!\nThere are not so many items in the basket.");
 
-				// Удаление товара из корзины;
+				// РЈРґР°Р»РµРЅРёРµ С‚РѕРІР°СЂР° РёР· РєРѕСЂР·РёРЅС‹;
 				if (it->second > count) it->second -= count;
 				else basket.erase(it);
 				isTrue = true;
@@ -105,7 +105,7 @@ void Shop::remove_product(std::string& article, int& count)
 			}
 			else isTrue = false;
 		}
-		// Бросает исключение если такого товара нет в корзине;
+		// Р‘СЂРѕСЃР°РµС‚ РёСЃРєР»СЋС‡РµРЅРёРµ РµСЃР»Рё С‚Р°РєРѕРіРѕ С‚РѕРІР°СЂР° РЅРµС‚ РІ РєРѕСЂР·РёРЅРµ;
 		if (!isTrue) throw std::invalid_argument("invalid_argument!\nThis product is not in the basket. ");
 	}
 }
