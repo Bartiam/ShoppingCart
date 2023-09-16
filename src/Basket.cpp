@@ -12,7 +12,7 @@ void Shop::fill_products(std::string& article, int& count)
 		std::cin >> count;
 
 		// Ѕросает исключение в случае если количество добавл€емого товара меньше 0;
-		if (count < 0) throw std::invalid_argument("The number of products cannot be less than 0. Try again.");
+		if (count < 0) throw std::invalid_argument("invalid_argument\nThe number of products cannot be less than 0. Try again.");
 		// ƒобавл€ет товар в список товаров магазина;
 		else products.emplace(article, count);
 
