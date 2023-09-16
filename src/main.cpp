@@ -20,10 +20,12 @@ int main()
 		}
 	}
 
-	while (command != "Exit" && command != "exit")
+	while (true)
 	{
 		std::cout << "Enter the command: ";
 		std::cin >> command;
+
+		if (command == "Exit" || command == "exit") return 0;
 
 		if (command == "Add" || command == "add")
 		{
